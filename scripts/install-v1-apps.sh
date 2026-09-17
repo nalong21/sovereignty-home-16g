@@ -15,7 +15,9 @@
 #
 # After Vaultwarden: disable public signups in the app admin UI / config.
 # Homarr may need ~7G free RAM to install; Immich ~2G.
-# Tailscale is NOT installed here (not a catalog app) — install at host/OS level.
+# Headscale is installed first (catalog ID `headscale`). Point official
+# Tailscale clients at that Headscale control server — do not expect a
+# different client app. Tailscale SaaS is not the v1 requirement.
 # borgmatic is NOT a YunoHost app — not installed here.
 
 set -euo pipefail
@@ -28,7 +30,7 @@ for arg in "${@:-}"; do
     --dry-run) DRY_RUN=1 ;;
     --yes|-y) ASSUME_YES=1 ;;
     -h|--help)
-      sed -n '2,20p' "$0"
+      sed -n '2,22p' "$0"
       exit 0
       ;;
     "")
@@ -58,7 +60,9 @@ if [[ ! -d /etc/yunohost ]]; then
 fi
 
 # Exact catalog IDs — do not invent
+# headscale first: mesh control plane before relying on remote app access
 APPS=(
+  headscale
   vaultwarden
   adguardhome
   immich
@@ -91,10 +95,12 @@ echo "sovereignty-home-16g — v1 app install helper"
 echo "Host checks: root=ok, yunohost=ok"
 echo "Order: ${APPS[*]}"
 echo "Notes:"
+echo "  - headscale first: then enroll official Tailscale clients against it"
+echo "  - SSO / users before treating apps as remotely reachable"
 echo "  - Disable Vaultwarden public signups after it installs"
 echo "  - Schedule Immich ML/recognition off-peak (not 24/7)"
 echo "  - Homarr ~7G RAM to install; Immich ~2G — check free memory"
-echo "  - Tailscale: install at OS level separately (not in catalog)"
+echo "  - Remote access: Headscale mesh only (Tailscale SaaS is not the v1 pin)"
 echo
 
 if [[ "$ASSUME_YES" -ne 1 && "$DRY_RUN" -ne 1 ]]; then
@@ -121,6 +127,9 @@ for id in "${APPS[@]}"; do
   fi
   # Let YunoHost ask for domain/path/args interactively — safer than guessing.
   yunohost app install "$id"
+  if [[ "$id" == "headscale" ]]; then
+    echo "    ACTION REQUIRED: document Headscale URL; enroll Tailscale clients (login-server = Headscale)"
+  fi
   if [[ "$id" == "vaultwarden" ]]; then
     echo "    ACTION REQUIRED: disable public signups in Vaultwarden now"
   fi

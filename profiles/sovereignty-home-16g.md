@@ -6,13 +6,13 @@
 
 ## Intent
 
-A private household sovereignty box: password vault, DNS filtering, photos, collaborative docs, uptime monitoring, and a dashboard — reachable on LAN and via Tailscale, with SSO in front of apps, and backups you can actually restore.
+A private household sovereignty box: password vault, DNS filtering, photos, collaborative docs, uptime monitoring, and a dashboard — reachable on LAN and via a **Headscale** mesh (official Tailscale clients → self-hosted Headscale), with SSO in front of apps, and backups you can actually restore.
 
 ## Non-negotiable posture
 
 1. **No public exposure by default** — no residential WAN port-forwards to this box.
-2. **Tailscale required for remote access** — install Tailscale at host/OS level (not in YunoHost catalog). Headscale may come later as optional control plane (`headscale` *is* in catalog).
-3. **SSO / identity first** — YunoHost users + SSOwat before stacking apps.
+2. **Headscale required for remote access** — install the catalog app `headscale` (`yunohost app install headscale`). Point official **Tailscale clients** at that Headscale control server (standard Headscale setup). Tailscale SaaS is only an optional simpler day-0 alternative — not the v1 requirement.
+3. **SSO / identity first** — YunoHost users + SSOwat before stacking apps; Headscale + SSO before treating apps as remotely reachable.
 4. **Email and card aliases OFF this box** — SimpleLogin or addy.io for email aliases; Privacy.com (or equivalent) for payment aliases.
 5. **DNS blocking via AdGuard Home** (`adguardhome`).
 6. **Refuse residential SMTP/mail servers and port-forwards** — ISP reputation/ToS, blocklists, and attack surface. Mail stays with a real provider; this box is not an MX.
@@ -21,6 +21,8 @@ A private household sovereignty box: password vault, DNS filtering, photos, coll
 
 | # | Catalog ID | Notes |
 |---|------------|--------|
+| 0 | `headscale` | Required mesh control plane. Clients = official Tailscale apps login-server’d to this Headscale |
+| — | *(SSO)* | YunoHost users / SSOwat before app stack |
 | 1 | `vaultwarden` | Disable public signups immediately after install |
 | 2 | `adguardhome` | Household DNS sinkhole / blocker |
 | 3 | `immich` | ML/recognition off-peak / scheduled — not 24/7 on 16GB |

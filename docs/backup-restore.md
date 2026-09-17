@@ -26,7 +26,7 @@ Minimum v1 set:
 
 - YunoHost system backup / app backups for: Vaultwarden, AdGuard Home config, Immich library metadata + data path, CryptPad, Uptime Kuma, Homarr
 - App data directories Immich uses for originals (size will dominate)
-- Tailscale is host-level — note node identity recovery separately (re-auth may be required)
+- Headscale (catalog app) + Tailscale clients — note mesh node/identity recovery separately (re-auth to Headscale may be required)
 
 Exclude junk: caches, Immich thumbnails if you accept rebuild cost (document your choice), temporary ML artifacts.
 

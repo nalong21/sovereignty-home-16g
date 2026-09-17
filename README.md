@@ -8,14 +8,16 @@ This is **not** a custom distro. Assume stock [YunoHost](https://yunohost.org/) 
 
 | Rule | Meaning |
 |------|---------|
-| No public exposure by default | Do not port-forward WAN → home box. Apps stay on LAN / Tailscale. |
-| Tailscale required for remote | Remote access is Tailscale (or later Headscale). Not residential port-forwards. |
+| No public exposure by default | Do not port-forward WAN → home box. Apps stay on LAN / Headscale mesh. |
+| Headscale required for remote | Remote access is via a **self-hosted Headscale** control server (`yunohost app install headscale`). Official **Tailscale clients** point at that Headscale server. Not residential port-forwards. |
 | SSO before apps | YunoHost / SSOwat identity first; then install apps behind it. |
 | Email & card aliases off-box | Use SimpleLogin or addy.io + Privacy.com — not mail or payment tooling on the home box. |
 | DNS blocking | AdGuard Home for household DNS filtering. |
 | No residential SMTP / mail | Refuse hosting mail or opening SMTP on residential ISP. See below. |
 
-**Why refuse residential SMTP and port-forwards:** residential IPs are on blocklists; ISP ToS often forbids mail servers; open WAN ports turn a home box into an attack surface and break the “no public exposure” default. Keep mail and payment aliases with dedicated providers; keep the box reachable only via Tailscale (or LAN).
+**Why refuse residential SMTP and port-forwards:** residential IPs are on blocklists; ISP ToS often forbids mail servers; open WAN ports turn a home box into an attack surface and break the “no public exposure” default. Keep mail and payment aliases with dedicated providers; keep the box reachable only via the Headscale mesh (or LAN).
+
+> **Footnote — Tailscale SaaS:** Using Tailscale’s hosted coordination service (no Headscale) is a simpler day-0 alternative if you accept a third-party control plane. It is **not** the v1 requirement for this profile.
 
 ## Hardware target
 
@@ -23,7 +25,14 @@ This is **not** a custom distro. Assume stock [YunoHost](https://yunohost.org/) 
 - Stock YunoHost (amd64)
 - Enough headroom for Immich + Homarr install notes (Homarr catalog notes ~7G to install; Immich ~2G)
 
-## V1 app install order (catalog IDs — exact)
+## V1 install order (catalog IDs — exact)
+
+**Mesh + identity first** (before treating apps as remotely reachable):
+
+0. `headscale` — self-hosted control server; configure official Tailscale clients to use this Headscale URL (standard Headscale setup — same client app, different login server)
+1. YunoHost SSO / users / SSOwat — identity before stacking apps
+
+Then the v1 app set:
 
 1. `vaultwarden` — disable public signups after install  
 2. `adguardhome`  
@@ -33,7 +42,7 @@ This is **not** a custom distro. Assume stock [YunoHost](https://yunohost.org/) 
 6. `homarr` (**not** `homepage` — homepage is not in the YunoHost catalog)  
 7. Backup: `restic` and/or `borg` (both in catalog). `borgmatic` is **not** a YunoHost app — host-level optional only.
 
-Optional later: `headscale` is in the catalog for a self-hosted Tailscale control plane. Tailscale itself is **not** in the catalog — install at host/OS level.
+Remote access is **only** via the mesh (or LAN). Do not expose apps on the residential WAN.
 
 See [docs/catalog-notes.md](docs/catalog-notes.md) and [docs/what-not-to-install.md](docs/what-not-to-install.md).
 
@@ -51,7 +60,7 @@ See [docs/catalog-notes.md](docs/catalog-notes.md) and [docs/what-not-to-install
 
 ## Optional install helper
 
-[`scripts/install-v1-apps.sh`](scripts/install-v1-apps.sh) wraps `yunohost app install` for the v1 set. Run only on a YunoHost host as root; read the comments before use.
+[`scripts/install-v1-apps.sh`](scripts/install-v1-apps.sh) wraps `yunohost app install` for Headscale plus the v1 app set. Run only on a YunoHost host as root; read the comments before use.
 
 ## License
 

@@ -13,7 +13,7 @@ It is **not** a public website host and **not** your email server.
 | Where you are | How |
 |---------------|-----|
 | At home (LAN) | Use the URLs your operator shared (HTTPS). |
-| Away | **Tailscale** only. Ask the operator for an invite / auth. |
+| Away | **Headscale mesh** only — install the official **Tailscale** client and ask the operator for an invite / auth to the household Headscale server. |
 
 There are **no** intentional open ports from the internet to this box.
 
@@ -41,7 +41,7 @@ Do not ask to “just host email on the box” — residential SMTP is out of sc
 
 1. Do not port-forward the home router to this machine.
 2. Do not create public signups on Vaultwarden.
-3. Treat Tailscale access like house keys — revoke when someone leaves the household.
+3. Treat mesh (Tailscale client → Headscale) access like house keys — revoke when someone leaves the household.
 4. Photo ML features may run only off-peak; don’t expect 24/7 recognition jobs.
 5. Backups are the operator’s job; if something feels wrong, tell them — don’t “fix it” by exposing the box.
 
