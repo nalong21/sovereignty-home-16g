@@ -8,7 +8,7 @@ Verified against the YunoHost application catalog for this profile’s pins. **D
 
 Immich: packaging notes include ~**2G** to install; architectures **amd64** and **arm64** (this profile targets amd64 N100/N150).
 
-Homarr: catalog notes ~**7G RAM** to install — material on a **16GB** box; free memory before installing.
+Homarr: catalog notes ~**7G RAM** to install — material on a **16GB** box. **Day-0 guidance:** install Homarr only with Immich ML/recognition **off** (or heavy Immich jobs stopped), **or defer Homarr** until Immich is stable — avoid first-boot OOM.
 
 ## Gaps and substitutions
 

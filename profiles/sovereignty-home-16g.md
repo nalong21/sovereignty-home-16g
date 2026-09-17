@@ -1,7 +1,7 @@
 # Profile: sovereignty-home-16g
 
 **Kind:** YunoHost appliance *profile* (documentation + optional wrappers)  
-**Hardware:** Intel N100/N150, 16GB RAM  
+**Hardware:** Intel N100/N150, 16GB RAM — **home metal only** (this repo does not document a VPS)  
 **Base OS:** Stock YunoHost on Debian (amd64) — **not** a custom distro
 
 ## Intent
@@ -28,7 +28,7 @@ A private household sovereignty box: password vault, DNS filtering, photos, coll
 | 3 | `immich` | ML/recognition off-peak / scheduled — not 24/7 on 16GB |
 | 4 | `cryptpad` | Collaborative docs |
 | 5 | `uptime-kuma` | Uptime / status |
-| 6 | `homarr` | Dashboard. Do **not** use `homepage` (not in catalog). Homarr install notes ~7G RAM — plan free memory on 16GB |
+| 6 | `homarr` | Dashboard. Do **not** use `homepage` (not in catalog). Catalog notes ~**7G RAM** to install — on 16GB, install only with Immich ML **off** / heavy jobs stopped, **or defer Homarr** until Immich is stable (avoid first-boot OOM) |
 | 7 | `restic` and/or `borg` | Primary backup apps. `borgmatic` is **not** a YunoHost app |
 
 ## Explicit non-goals (v1)
@@ -39,6 +39,7 @@ See [docs/what-not-to-install.md](../docs/what-not-to-install.md): Nextcloud, Ji
 
 - Day 0: [docs/day0-operator.md](../docs/day0-operator.md)
 - Household card: [docs/onboarding-card.md](../docs/onboarding-card.md)
+- Printable household bullets: [docs/onboarding-household.md](../docs/onboarding-household.md)
 - Domains/SSO: [docs/sso-domains.md](../docs/sso-domains.md)
 - Backup/restore: [docs/backup-restore.md](../docs/backup-restore.md)
 - Catalog honesty: [docs/catalog-notes.md](../docs/catalog-notes.md)

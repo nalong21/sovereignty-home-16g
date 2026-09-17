@@ -15,6 +15,9 @@
 #
 # After Vaultwarden: disable public signups in the app admin UI / config.
 # Homarr may need ~7G free RAM to install; Immich ~2G.
+# Homarr day-0: install only with Immich ML/recognition OFF (or heavy
+# Immich jobs stopped), OR skip/defer Homarr (SKIP_APPS=homarr) until
+# Immich is stable — avoid first-boot OOM on 16GB.
 # Headscale is installed first (catalog ID `headscale`). Point official
 # Tailscale clients at that Headscale control server — do not expect a
 # different client app. Tailscale SaaS is not the v1 requirement.
@@ -100,6 +103,7 @@ echo "  - SSO / users before treating apps as remotely reachable"
 echo "  - Disable Vaultwarden public signups after it installs"
 echo "  - Schedule Immich ML/recognition off-peak (not 24/7)"
 echo "  - Homarr ~7G RAM to install; Immich ~2G — check free memory"
+echo "  - Homarr: Immich ML OFF (or heavy jobs stopped), or SKIP_APPS=homarr until Immich stable"
 echo "  - Remote access: Headscale mesh only (Tailscale SaaS is not the v1 pin)"
 echo
 
@@ -135,6 +139,9 @@ for id in "${APPS[@]}"; do
   fi
   if [[ "$id" == "immich" ]]; then
     echo "    ACTION REQUIRED: set ML/recognition to scheduled/off-peak (not 24/7)"
+  fi
+  if [[ "$id" == "homarr" ]]; then
+    echo "    CAUTION: Homarr ~7G RAM to install — confirm Immich ML/heavy jobs are stopped first"
   fi
 done
 

@@ -13,6 +13,7 @@ Target: stock YunoHost on an N100/N150 **16GB** box. Profile: `sovereignty-home-
 - [ ] Confirm **no** residential WAN port-forwards to this host (router check)
 - [ ] Document SimpleLogin **or** addy.io + Privacy.com (or equivalent) as off-box alias providers
 - [ ] Note free RAM: Homarr catalog notes ~**7G** to install; Immich ~**2G**. Free memory before those steps
+- [ ] **Homarr OOM caution (16GB):** install `homarr` only with Immich ML/recognition **off** (or heavy Immich jobs stopped), **or defer Homarr** until Immich is stable — avoid first-boot OOM
 
 > Tailscale SaaS (hosted coordination, no Headscale) is a simpler day-0 alternative only — **not** the v1 requirement.
 
@@ -26,7 +27,7 @@ Prefer the portal or `yunohost app install <id>`. Optional wrapper: [`scripts/in
 3. [ ] `immich` → configure ML/recognition for **scheduled / off-peak**, not always-on  
 4. [ ] `cryptpad`  
 5. [ ] `uptime-kuma` → monitor the box itself + critical URLs over mesh/LAN  
-6. [ ] `homarr` → wire links to the apps above (not `homepage`)  
+6. [ ] `homarr` → **only if RAM is free** (Immich ML off / heavy jobs stopped, or defer until Immich is stable); then wire links (not `homepage`)  
 7. [ ] `restic` and/or `borg` → configure USB local + offsite B2 per [backup-restore.md](backup-restore.md)
 
 ## Immediately after Vaultwarden
@@ -50,5 +51,5 @@ Prefer the portal or `yunohost app install <id>`. Optional wrapper: [`scripts/in
 
 ## Hand-off
 
-- [ ] Fill [onboarding-card.md](onboarding-card.md) and share with household
+- [ ] Fill [onboarding-card.md](onboarding-card.md) (operator) and share [onboarding-household.md](onboarding-household.md) (printable household bullets)
 - [ ] Point operators at [what-not-to-install.md](what-not-to-install.md) so v2 apps don’t sneak in early

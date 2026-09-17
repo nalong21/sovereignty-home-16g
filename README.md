@@ -1,6 +1,6 @@
 # sovereignty-home-16g
 
-Pinned **YunoHost appliance profile** (docs + optional install wrappers) for N100/N150 **16GB** home boxes.
+Pinned **YunoHost appliance profile** (docs + optional install wrappers) for N100/N150 **16GB** **home metal** boxes only — this repo does not document a VPS, cloud VM, or hybrid layout.
 
 This is **not** a custom distro. Assume stock [YunoHost](https://yunohost.org/) on Debian. The profile documents posture, catalog IDs, install order, and day-0 operator steps so a 16GB mini-PC stays private, recoverable, and boring to operate.
 
@@ -23,7 +23,7 @@ This is **not** a custom distro. Assume stock [YunoHost](https://yunohost.org/) 
 
 - Intel N100 / N150 class mini-PC, **16GB RAM**
 - Stock YunoHost (amd64)
-- Enough headroom for Immich + Homarr install notes (Homarr catalog notes ~7G to install; Immich ~2G)
+- Enough headroom for Immich + Homarr install notes (Homarr catalog notes ~**7G** to install; Immich ~**2G**). Install Homarr only with Immich ML off / heavy jobs stopped, or **defer Homarr** until Immich is stable — avoid first-boot OOM on 16GB
 
 ## V1 install order (catalog IDs — exact)
 
@@ -39,7 +39,7 @@ Then the v1 app set:
 3. `immich` — ML/recognition scheduled / off-peak, not 24/7  
 4. `cryptpad`  
 5. `uptime-kuma`  
-6. `homarr` (**not** `homepage` — homepage is not in the YunoHost catalog)  
+6. `homarr` (**not** `homepage` — homepage is not in the YunoHost catalog) — **RAM caution:** ~7G to install; Immich ML off or defer Homarr  
 7. Backup: `restic` and/or `borg` (both in catalog). `borgmatic` is **not** a YunoHost app — host-level optional only.
 
 Remote access is **only** via the mesh (or LAN). Do not expose apps on the residential WAN.
@@ -52,7 +52,8 @@ See [docs/catalog-notes.md](docs/catalog-notes.md) and [docs/what-not-to-install
 |-----|---------|
 | [profiles/sovereignty-home-16g.md](profiles/sovereignty-home-16g.md) | Full profile pin |
 | [docs/day0-operator.md](docs/day0-operator.md) | First-boot / first-week checklist |
-| [docs/onboarding-card.md](docs/onboarding-card.md) | Household one-pager |
+| [docs/onboarding-card.md](docs/onboarding-card.md) | Operator / full household card |
+| [docs/onboarding-household.md](docs/onboarding-household.md) | Printable household bullets |
 | [docs/sso-domains.md](docs/sso-domains.md) | Domains + SSO layout |
 | [docs/backup-restore.md](docs/backup-restore.md) | Restic/Borg, USB + B2, Vaultwarden drill |
 | [docs/catalog-notes.md](docs/catalog-notes.md) | Honest catalog gaps |

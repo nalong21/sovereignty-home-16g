@@ -14,6 +14,7 @@ These are **explicitly out of v1** for `sovereignty-home-16g`. Revisit in **v2**
 - Residential **SMTP / full mail stack** on this box — reputation, ISP ToS, blocklists; use hosted mail + SimpleLogin/addy.io aliases instead.
 - **WAN port-forwards** to the home box — breaks default private posture; use the **Headscale** mesh (official Tailscale clients → Headscale). Tailscale SaaS is only a simpler optional alternative, not the v1 pin.
 - Catalog lookalikes that are **not** in the YunoHost catalog for this profile’s pins: e.g. do not substitute `homepage` for `homarr`; do not assume `borgmatic` is a YunoHost app.
+- **VPS / cloud VM / hybrid “tiny VPS for Headscale”** layouts — this profile is **home N100/N150 metal only**; Headscale runs on the home box. Do not document or add a separate VPS for mesh, mail, or hybrid access.
 
 ## When promoting something to v2
 
